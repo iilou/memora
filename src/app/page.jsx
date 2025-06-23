@@ -74,7 +74,7 @@ export default function Home() {
 
 
   // const [xp, setXp] = useState(localStorage.getItem("xpxpxpxpxpasdfdf") ? JSON.parse(localStorage.getItem("xpxpxpxpxpasdfdf")).xp : 0);
-  const [xp, setXp] = useState(0);
+  const [xp, setXp] = useState(-1);
   const [curXp, setCurXp] = useState(0);
   const [level, setLevel] = useState(1);
 
@@ -94,6 +94,8 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (xp < 0) return;
+    console.log("xp changed:", xp);
     const [newLevel, xpNeeded, curXpInLevel] = xpToLevel(xp);
     setLevel(newLevel);
     setCurXp(curXpInLevel);
@@ -160,8 +162,11 @@ export default function Home() {
 
 
   useEffect(() => {
-    setQuests((prev) => fillQuests(localStorage.getItem("questsafwefwefwefwef") ? JSON.parse(localStorage.getItem("questsafwefwefwefwef")) : {}));
-    setXp((prev) => localStorage.getItem("xpxpxpxpxpasdfdf") ? JSON.parse(localStorage.getItem("xpxpxpxpxpasdfdf")).xp : 0);
+    // setTimeout(() => {
+    //   console.log("Loading quests and xp from localStorage", localStorage.getItem("questsafwefwefwefwef"), localStorage.getItem("xpxpxpxpxpasdfdf"));
+      setQuests((prev) => fillQuests(localStorage.getItem("questsafwefwefwefwef") ? JSON.parse(localStorage.getItem("questsafwefwefwefwef")) : {}));
+      setXp((prev) => localStorage.getItem("xpxpxpxpxpasdfdf") ? JSON.parse(localStorage.getItem("xpxpxpxpxpasdfdf")).xp : 0);
+    // },1000);
   }, []);
 
 
